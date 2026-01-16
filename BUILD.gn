@@ -3852,3 +3852,7 @@ if (skia_build_rust_targets) {
     ]
   }
 }
+
+group("skia_dart") {
+  deps = [ "//../src:skia_dart" ]
+}
