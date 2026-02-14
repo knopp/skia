@@ -116,6 +116,9 @@ def main():
   cxx_flags = args.cxx_flags or []
   ld_flags = args.ld_flags or []
 
+  if args.dawn_enable_opengles:
+    configure_cmd.append("-DTINT_BUILD_GLSL_WRITER=ON")
+
   if target_os == "Windows":
     win_cfgs, win_cxx, win_ld = get_windows_settings(args)
     configure_cmd += win_cfgs
