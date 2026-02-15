@@ -697,14 +697,6 @@ config("optimize") {
   } else {
     if (skia_enable_optimize_size) {
       cflags = [ "-Oz" ]
-      if (!is_android) {
-        cflags += [
-          # Clang 15 turns PIE (Position-indendendent Executable) on by default.
-          "-fno-PIE",
-          "-fno-pie",
-        ]
-        ldflags += [ "-no-pie" ]
-      }
     } else {
       cflags = [ "-O3" ]
     }
