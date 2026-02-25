@@ -8,6 +8,7 @@
 # The result is a single static library that can be linked into Skia.
 
 import("//third_party/dawn/args.gni")
+import("//gn/skia.gni")
 
 if (is_win) {
   # On Windows, the normal cc/cxx variables are just "clang" and "clang++"
@@ -257,6 +258,13 @@ action("dawn_cmake") {
     args += [
       "--android_ndk_path=" + ndk,
       "--android_platform=android-" + ndk_api,
+    ]
+  }
+  if (is_linux && linux_sysroot != "") {
+    args +=[
+      "--cc=clang",
+      "--cxx=clang++",
+      "--cxx_flags=--sysroot=" + linux_sysroot,
     ]
   }
 
