@@ -305,6 +305,12 @@ config("default") {
     ldflags += [ "--sysroot=$skia_emsdk_dir/upstream/emscripten/cache/sysroot" ]
   }
 
+  if (is_linux && linux_sysroot != "") {
+    asmflags += [ "--sysroot=$linux_sysroot" ]
+    cflags += [ "--sysroot=$linux_sysroot" ]
+    ldflags += [ "--sysroot=$linux_sysroot" ]
+  }
+
   # sanitize only applies to the default toolchain (usually the target).
   if (current_toolchain != default_toolchain) {
     sanitize = ""
