@@ -164,7 +164,6 @@ config("dawn_api_config") {
       "IOKit.framework",
       "Metal.framework",
       "QuartzCore.framework",
-      "Cocoa.framework",
     ]
   }
 }
@@ -233,6 +232,9 @@ action("dawn_cmake") {
     "--target_cpu=" + target_cpu,
     "--build_dir=cmake_dawn",
   ]
+  if (is_ios && ios_use_simulator) {
+    args += [ "--ios_use_simulator" ]
+  }
   if (is_clang) {
     args += [ "--is_clang" ]
   }

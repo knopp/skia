@@ -38,6 +38,9 @@ def add_common_cmake_args(parser):
   parser.add_argument(
       "--target_cpu", required=True, help="Target CPU for cross-compilation.")
   parser.add_argument(
+      "--ios_use_simulator", action=argparse.BooleanOptionalAction,
+      help="Whether to build for the iOS simulator.")
+  parser.add_argument(
       "--win_sdk", default="", help="Path to the Windows SDK.")
   parser.add_argument(
       "--win_sdk_version", default="", help="Version of the Windows SDK.")
@@ -243,6 +246,13 @@ def get_cmake_os_cpu(os, cpu):
 
   if os == "wasm":
     return "wasm", "wasm"
+
+  if os == "ios":
+    target_cpu_map = {
+      "arm64": "arm64",
+      "x64": "x86_64",
+    }
+    return "iOS", target_cpu_map[cpu]
 
   print("Unsupported OS")
   sys.exit(1)

@@ -156,6 +156,11 @@ def main():
   if target_os == "Darwin" or target_os == "iOS":
     configure_cmd.append(f"-DCMAKE_OSX_ARCHITECTURES={target_cpu}")
 
+  if target_os == "iOS":
+    configure_cmd.append("-DTINT_BUILD_CMD_TOOLS=OFF")
+    if args.ios_use_simulator:
+      configure_cmd.append("-DCMAKE_OSX_SYSROOT=iphonesimulator")
+
   env = os.environ.copy()
   # Don't write .pyc files, which can cause race conditions when building
   # tint and dawn in parallel.
