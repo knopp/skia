@@ -29,6 +29,7 @@
 #include <unicode/umachine.h>
 #include <unicode/utext.h>
 #include <unicode/utypes.h>
+#include <unicode/udata.h>
 
 #include <cstdint>
 #include <cstring>
@@ -704,5 +705,14 @@ sk_sp<SkUnicode> Make() {
         return sk_make_sp<SkUnicode_icu>();
     }
     return nullptr;
+}
+
+bool SkICUSetCommonData(const void* data) {
+    UErrorCode err = U_ZERO_ERROR;
+    udata_setCommonData(data, &err);
+    if (U_FAILURE(err)) {
+        fprintf(stderr, "Failed to set ICU common data: %s\n", sk_u_errorName(err));
+    }
+    return !U_FAILURE(err);
 }
 }  // namespace SkUnicodes::ICU
