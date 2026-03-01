@@ -70,7 +70,7 @@ if (skia_use_system_icu) {
       "../externals/icu/source/i18n",
       ".",
     ]
-    public_defines = [ "SK_USING_THIRD_PARTY_ICU" ]
+    public_defines = []
     configs = [ "//gn/portable:add_rtti" ]
     defines = [
       # http://userguide.icu-project.org/howtouseicu
@@ -106,7 +106,7 @@ if (skia_use_system_icu) {
         "SkLoadICU.cpp",
       ]
     } else {
-      sources += [ "$data_assembly" ]
+      sources += [ "../externals/icu/source/stubdata/stubdata.cpp" ]
       deps = [ ":make_data_assembly" ]
     }
   }
